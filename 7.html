@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FloodSense - Water Level Monitor</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">🌊 FloodSense</div>
+    <ul class="nav-links">
+      <li><a href="5.html">Home</a></li>
+      <li><a href="1.html">Emergency</a></li>
+      <li><a href="4.html">About Us</a></li>
+      <li><a href="2.html">water-purity</a></li>
+      <li><a href="7.html">water-level</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <h1>🌧️ Real-Time Water Level Monitoring</h1>
+    <p>Stay safe with up-to-date water level data from your area.</p>
+  </header>
+
+  <!-- Water Level Section -->
+  <section class="water-data">
+    <div class="container">
+      <h2>Live Water Level: <span id="waterLevel">--</span> cm</h2>
+      <p id="riskLevel" class="risk-info"></p>
+    </div>
+  </section>
+
+  <!-- JavaScript to simulate real-time data -->
+  <script>
+    const channelID = '2927970'; // Replace with your ThingSpeak Channel ID
+    const readAPIKey = 'XD1IVSMVQR4GO9CL'; // Replace with your ThingSpeak Read API Key
+  
+    function fetchWaterLevel() {
+      fetch(`https://api.thingspeak.com/channels/${'2927970'}/feeds/last.json?api_key=${'XD1IVSMVQR4GO9CL'}`)
+        .then(response => response.json())
+        .then(data => {
+          const level = parseInt(data.field2); // Assuming field2 is for water level in cm
+          document.getElementById("waterLevel").textContent = level;
+  
+          const riskText = document.getElementById("riskLevel");
+          if (level < 50) {
+            riskText.textContent = "🟢 Safe - Normal water level.";
+            riskText.style.color = "green";
+          } else if (level >= 50 && level < 120) {
+            riskText.textContent = "🟠 Caution - Rising water level. Be alert.";
+            riskText.style.color = "orange";
+          } else {
+            riskText.textContent = "🔴 Danger - Flood risk! Take immediate precautions.";
+            riskText.style.color = "red";
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching data from ThingSpeak:', error);
+          document.getElementById("riskLevel").textContent = "⚠️ Unable to fetch data.";
+          document.getElementById("riskLevel").style.color = "gray";
+        });
+    }
+  
+    // Fetch data every 15 seconds (ThingSpeak rate limit)
+    setInterval(fetchWaterLevel, 15000);
+    fetchWaterLevel(); // Initial call
+  </script>
+  
+
+</body>
+</html>

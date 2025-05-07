@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  body {
+    background-color: #f0f9ff;
+    color: #333;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0077b6;
+    padding: 1rem 2rem;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.2rem;
+  }
+  
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .nav-links a.active, .nav-links a:hover {
+    color: #90e0ef;
+  }
+  
+  .emergency-header {
+    background: #023e8a;
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  .emergency-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    padding: 2rem;
+  }
+  
+  .contact-card {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .contact-card:hover {
+    transform: scale(1.05);
+    background-color: #e0f7fa;
+  }
+  
+  .contact-card h3 {
+    margin-bottom: 0.5rem;
+    color: #0077b6;
+  }
+  
+  .contact-card p {
+    font-size: 0.95rem;
+    color: #555;
+  }
+  
+  .contact-card strong {
+    display: block;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #000;
+  }
+  
+  .footer {
+    background: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  

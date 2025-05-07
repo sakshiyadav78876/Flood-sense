@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Water Purity - FloodSense</title>
+  <link rel="stylesheet" href="style1.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Navbar (same as homepage) -->
+  <nav class="navbar">
+    <div class="logo">🌊 FloodSense</div>
+    <ul class="nav-links">
+      <li><a href="5.html">Home</a></li>
+      <li><a href="1.html">Emergency</a></li>
+      <li><a href="4.html">About Us</a></li>
+      <li><a href="2.html">water-purity</a></li>
+      <li><a href="7.html">water-level</a></li>
+    </ul>
+  </nav>
+
+  <header class="header">
+    <h1>Water Purity Monitoring</h1>
+    <p>Live updates on water condition and associated risks</p>
+  </header>
+
+  <section class="sensor-data">
+    <div class="container">
+      <h2>Live Sensor Readings</h2>
+      <div class="reading-box">
+        <p><strong>Water Type:</strong> <span id="waterType">Loading...</span></p>
+        <p><strong>Purity Level (%):</strong> <span id="purityLevel">Loading...</span></p>
+      </div>
+
+      <div class="disease-info" id="diseaseInfo">
+        <h3>Disease Risk:</h3>
+        <ul id="diseaseList">
+          <li>Loading...</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2025 FloodSense | Monitoring Water to Save Lives</p>
+  </footer>
+  <script>
+    const channelID = '2927970'; // 🔁 Replace this
+    const readAPIKey = 'XD1IVSMVQR4GO9CL'; // 🔁 Replace this
+
+    function fetchPurityData() {
+      fetch(`https://api.thingspeak.com/channels/${'2927970'}/feeds/last.json?api_key=${'XD1IVSMVQR4GO9CL'}`)
+        .then(response => response.json())
+        .then(data => {
+          const ph = parseFloat(data.field1); // Assume field1 is pH
+          let waterType = '';
+          if (ph < 5.5) {
+            waterType = 'Acidic';
+          } else if (ph <= 8.5) {
+            waterType = 'Neutral / Safe';
+          } else {
+            waterType = 'Alkaline';
+          }
+
+          let purity = 100 - Math.abs(7 - ph) * 12;
+          purity = Math.max(0, purity);
+
+          document.getElementById("waterType").textContent = waterType;
+          document.getElementById("purityLevel").textContent = purity.toFixed(1) + "%";
+
+          const diseaseList = document.getElementById("diseaseList");
+          diseaseList.innerHTML = "";
+
+          if (ph < 5.5) {
+            diseaseList.innerHTML = `
+              <li>Skin Irritation</li>
+              <li>Gastrointestinal Issues</li>
+              <li>Dental Corrosion</li>`;
+          } else if (ph > 8.5) {
+            diseaseList.innerHTML = `
+              <li>Alkalosis</li>
+              <li>Skin & Eye Irritation</li>
+              <li>Stomach Discomfort</li>`;
+          } else {
+            diseaseList.innerHTML = `<li>None - Water is safe to consume 💧</li>`;
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          document.getElementById("waterType").textContent = "Unavailable";
+          document.getElementById("purityLevel").textContent = "Unavailable";
+          document.getElementById("diseaseList").innerHTML = `<li>Error loading data</li>`;
+        });
+    }
+
+    fetchPurityData();
+    setInterval(fetchPurityData, 15000); // update every 15 seconds
+  </script>
+
+</body>
+</html>

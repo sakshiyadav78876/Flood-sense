@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f9ff;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    background-color: #0077b6;
+    padding: 1rem 2rem;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .nav-links li a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Header */
+  .header {
+    background-color: #90e0ef;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .header p {
+    font-size: 1.2rem;
+  }
+  
+  /* Water Data */
+  .water-data {
+    padding: 50px 20px;
+    text-align: center;
+  }
+  
+  #waterLevel {
+    color: #03045e;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .risk-info {
+    font-size: 1.3rem;
+    margin-top: 20px;
+  }
+  
